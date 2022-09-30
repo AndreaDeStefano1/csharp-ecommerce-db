@@ -21,7 +21,7 @@ namespace csharp_ecommerce_db
 
         // relazioni con payment
 
-        List<Payment> Payments { get; set; }
+        public List<Payment> Payments { get; set; }
 
         // relazioni con empoloyee
 
@@ -30,7 +30,49 @@ namespace csharp_ecommerce_db
 
         // relazioni con products
 
-        public List<Product> ProductsInOrder { get; set; }
+        public List<Product> ProductsInOrder { get; set; } = new List<Product>();
 
+        public static void AddProductToOrder(Customer c, List<Product> cart)
+        {
+            double total = 0;
+            foreach (Product product in cart)
+            {
+                total += product.Price;
+            }
+            using (OrderContext db = new OrderContext())
+            {
+ 
+                //prendo un employee a caso
+                Employee e = (from s in db.Employees
+                              where s.EmployeeId == 1
+                              select s).First<Employee>();
+                Console.WriteLine(e.ToString());
+                Order newOrder = new Order
+                {
+                    Date = DateTime.Now,
+                    Amount = total,
+                    Status = "Recived",
+                    Customer = c,
+                    Employee = e,
+                    ProductsInOrder = cart
+                };
+
+
+                db.Orders.Add(newOrder);
+
+                Payment payment = new Payment { Date = DateTime.Now, Amount = total, Status = "Working" };
+                payment.Order = newOrder;
+
+             
+
+                db.Payments.Add(payment);
+
+
+                db.SaveChanges();
+
+
+            }
+
+        }
     }
 }

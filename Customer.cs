@@ -36,9 +36,9 @@
                                select s).First<Customer>();
 
 
-                c.Name = ValueChange(c.Name); //QUI NON MI VEDEVA LA FUNZIONE SE NON STATICA
-                c.Surname = ValueChange(c.Surname);
-                c.Email = ValueChange(c.Email);
+                c.Name = Utility.ValueChange(c.Name); 
+                c.Surname = Utility.ValueChange(c.Surname);
+                c.Email = Utility.ValueChange(c.Email);
 
                 db.SaveChanges();
             }
@@ -47,18 +47,19 @@
         public string ToString(Customer c)
         {
             
-            return $"----\n----\nNome: {c.Name}\nCognome: {c.Surname}\nEmail: c{Email}\n----";
+            return $"----\n----\nNome: {c.Name}\nCognome: {c.Surname}\nEmail: {c.Email}\n----";
         }
-        
-        public static string ValueChange(string value)
+        public static Customer ReadCustomer(string email)
         {
-            Console.WriteLine($"Vuoi modificare il nome? [{value}]");
-            string newValue = Console.ReadLine();// QUI VORREI USARE IL MIO STRINGINPUT() CHE SI TROVA IN PROGRAM
-            if (newValue != "")
+            using (OrderContext db = new OrderContext())
             {
-                return newValue;
+
+                Customer c = db.Customers.Where(Customer => Customer.Email == email).First();
+
+                return c;
             }
-            return value;
+
         }
+
     }
 }

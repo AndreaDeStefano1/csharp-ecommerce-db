@@ -1,53 +1,43 @@
-﻿
-using csharp_ecommerce_db;
-
-static void MenuOptions()
-{
-    Console.WriteLine("1-Employee\n2-Customer\n3-Product");
-}
-
-
-
-
-static string StringInput(string message)
-{
-    Console.WriteLine(message);
-    return Console.ReadLine();
-}
-
-
+﻿using csharp_ecommerce_db;
+using System.Xml.Linq;
 
 bool exit = false;
 
 while (!exit)
 {
-    MenuOptions();
+    Console.Clear();
+    Utility.MenuOptions();
 
-    int choice = Convert.ToInt32(StringInput("Cosa vuoi fare:"));
+    int choice = Convert.ToInt32(Utility.StringInput("Cosa vuoi fare:"));
     switch (choice)
     {
 
         case 1:
+            Console.Clear();
+
             Console.WriteLine("1-Aggiungi nuovo\n2-Modifica\n3-Visualizza\n4-Elimina");
             bool CusExit = false;
             while (!CusExit)
             {
-                int CusChoice = Convert.ToInt32(StringInput("Cosa vuoi fare:"));
+                int CusChoice = Convert.ToInt32(Utility.StringInput("Cosa vuoi fare:"));
                 switch (CusChoice)
                 {
                     case 1:
-                        Customer nC = Customer.CreateCustomer(StringInput("Nome:"), StringInput("Cognome"), StringInput("Email:"));
+                        Customer nC = Customer.CreateCustomer(Utility.StringInput("Nome:"), Utility.StringInput("Cognome"), Utility.StringInput("Email:"));
                         Console.WriteLine(nC.ToString(nC));
                         break;
 
                     case 2:
-                        Customer.UpdateCustomer(StringInput("Inserisci la mail del cliente da modificare"));
+                        Customer.UpdateCustomer(Utility.StringInput("Inserisci la mail del cliente da modificare"));
                         Console.WriteLine("modificato");
                         break;
 
                     case 3:
+                        Customer CustomerToOrder = (Customer.ReadCustomer(Utility.StringInput("Inserisci la mail del cliente da cercare")));
+                        Console.WriteLine(CustomerToOrder.ToString(CustomerToOrder)); 
                         break;
                     case 4:
+                        //delete
                         break;
                     default:
                         CusExit = true;
@@ -56,9 +46,77 @@ while (!exit)
             }
 
             break;
+        case 2:
+            Console.Clear();
 
+            Console.WriteLine("1-Aggiungi nuovo\n2-Modifica\n3-Visualizza\n4-Elimina");
+            bool ProdExit = false;
+            while (!ProdExit)
+            {
+                int ProdChoice = Convert.ToInt32(Utility.StringInput("Cosa vuoi fare:"));
+                switch (ProdChoice)
+                {
+                    case 1:
+                        Product nP = Product.CreateProduct(Utility.StringInput("Nome:"), Utility.StringInput("Descrizione"), Convert.ToDouble(Utility.StringInput("Prezo:")));
+                        Console.WriteLine(nP.ToString(nP));
+                        break;
 
+                    case 2:
+                        //update
+                        break;
+
+                    case 3:
+                        Product p = Product.ReadProduct(Utility.StringInput("Che prodotto vuoi Visualizare?"));
+
+                        break;
+                    case 4:
+                        //delete
+                        break;
+                    default:
+                        CusExit = true;
+                        break;
+                }
+            }
+            break;
+
+        case 4:
+            Console.Clear();
+
+            List<Product> cart = new List<Product>();
+            Customer c = (Customer.ReadCustomer(Utility.StringInput("Inserisci la mail a cui assegnare l'ordine")));
+            bool keepAdding = true;
+            while (keepAdding)
+            {
+                int orderChoice = Convert.ToInt32(Utility.StringInput("1-Aggiungi Prodotto 2-Salva Ordine"));
+                switch (orderChoice)
+                {
+                    case 1:
+                        Product p = Product.ReadProduct(Utility.StringInput("Che prodotto vuoi aggiungere?"));
+                        cart.Add(p);
+                        break;
+                    case 2:
+                        try
+                        {
+                            Order.AddProductToOrder(c, cart);
+                            keepAdding = false;
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        
+                        Console.WriteLine("Ordine creato");
+                        break;
+                    default:
+                        break;
+                }
+            }
+            break;
+        
         default:
             break;
     }
 }
+
+
+

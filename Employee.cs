@@ -12,5 +12,7 @@ namespace csharp_ecommerce_db
         // relazione 
 
         List<Order> Orders { get; set; }
+
+        
     }
 }
