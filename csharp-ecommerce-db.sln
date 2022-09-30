@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp-ecommerce-db", "csharp-ecommerce-db.csproj", "{CA2223E8-0808-4CA0-A7D4-D6EFCE1608CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA2223E8-0808-4CA0-A7D4-D6EFCE1608CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA2223E8-0808-4CA0-A7D4-D6EFCE1608CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA2223E8-0808-4CA0-A7D4-D6EFCE1608CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA2223E8-0808-4CA0-A7D4-D6EFCE1608CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {495AF667-FA67-49CA-ADDE-E4D2E63D02AB}
+	EndGlobalSection
+EndGlobal
