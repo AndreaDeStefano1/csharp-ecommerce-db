@@ -10,6 +10,6 @@ public class OrderContext : DbContext
     public DbSet<Product> Products { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=db-ecommerce;Integrated Security=True");
+        optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=db-eccommerce2;Integrated Security=True");
     }
 }

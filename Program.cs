@@ -1,5 +1,21 @@
 ﻿using csharp_ecommerce_db;
 using System.Xml.Linq;
+DefaultProduct();
+void DefaultProduct()
+{
+    using(OrderContext db = new OrderContext()) {
+        Product newProduct1 = new Product { Name = "Scatola", Description = "La scatola di pandora", Price = 15 };
+        Product newProduct2 = new Product { Name = "Tonno", Description = "Tonno in scatola", Price = 10 };
+        Product newProduct3 = new Product { Name = "Cicca", Description = "Sigaretta", Price = 20 };
+
+        db.Add(newProduct1);
+        db.Add(newProduct2);
+        db.Add(newProduct3);
+
+        db.SaveChanges();
+    }
+        
+}
 
 bool exit = false;
 
@@ -95,17 +111,11 @@ while (!exit)
                         cart.Add(p);
                         break;
                     case 2:
-                        try
-                        {
+
                             Order.AddProductToOrder(c, cart);
                             keepAdding = false;
-                        }
-                        catch(Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
+                      
                         
-                        Console.WriteLine("Ordine creato");
                         break;
                     default:
                         break;
@@ -113,6 +123,7 @@ while (!exit)
             }
             break;
         
+
         default:
             break;
     }

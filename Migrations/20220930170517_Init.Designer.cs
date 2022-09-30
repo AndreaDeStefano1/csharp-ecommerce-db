@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace csharp_ecommerce_db.Migrations
 {
     [DbContext(typeof(OrderContext))]
-    [Migration("20220930132305_Init")]
+    [Migration("20220930170517_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -195,7 +195,7 @@ namespace csharp_ecommerce_db.Migrations
             modelBuilder.Entity("csharp_ecommerce_db.Payment", b =>
                 {
                     b.HasOne("csharp_ecommerce_db.Order", "Order")
-                        .WithMany()
+                        .WithMany("Payments")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -216,6 +216,11 @@ namespace csharp_ecommerce_db.Migrations
                         .HasForeignKey("ProductsInOrderProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("csharp_ecommerce_db.Order", b =>
+                {
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }
