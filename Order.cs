@@ -46,6 +46,18 @@ namespace csharp_ecommerce_db
                 Employee e = (from s in db.Employees
                               where s.EmployeeId == 1
                               select s).First<Employee>();
+
+                //SOLUZIONE
+
+                //Customer c = (from s in db.Customers
+                //              where s.Email == "m"
+                //              select s).First<Customer>();
+                //List<Product> products = new List<Product>();
+                //Product p = (from s in db.Products
+                //             where s.Name == "tonno"
+                //             select s).First<Product>();
+                //products.Add(p);
+
                 Console.WriteLine(e.ToString());
                 Order newOrder = new Order
                 {
